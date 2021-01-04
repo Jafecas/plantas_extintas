@@ -388,7 +388,13 @@ summary {
 </div>
 <div id="datos-de-sudamerica" class="section level2">
 <h2>Datos de Sudamerica</h2>
-<p>El numero de especies que hay en sudamerica es 83</p>
+<p>El numero de especies que hay en sudamerica es 83 especies</p>
+<pre class="r"><code>Tabla &lt;- msleep %&gt;% 
+        group_by(vore) %&gt;% 
+        summarise_at(&quot;sleep_total&quot;,.funs = list(Mean = mean, SD = sd)) %&gt;% 
+        dplyr::filter(!is.na(vore)) %&gt;%
+        arrange(desc(Mean))
+kable(Tabla)</code></pre>
 </div>
 
 

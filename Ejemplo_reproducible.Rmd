@@ -9,9 +9,11 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(kableExtra)
+library(knitr)
 plants <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-08-18/plants.csv")
 actions <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-08-18/actions.csv")
 threats <- readr::read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-08-18/threats.csv")
+data("msleep")
 
 ```
 
@@ -24,3 +26,13 @@ Estos datos sobre plantas extintas se obtuvieron de un **repositorio** en GitHub
 ## Datos de Sudamerica
 
 El numero de especies que hay en sudamerica es `r plants %>% dplyr::filter(continent == "South America") %>% nrow()` especies
+
+```r
+Tabla <- msleep %>% 
+        group_by(vore) %>% 
+        summarise_at("sleep_total",.funs = list(Mean = mean, SD = sd)) %>% 
+        dplyr::filter(!is.na(vore)) %>%
+        arrange(desc(Mean))
+kable(Tabla)
+```
+
